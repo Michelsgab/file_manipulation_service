@@ -1,10 +1,24 @@
-from flask import Flask
+import DAO
+from flask import Flask, jsonify
+
 
 api = Flask(__name__)
 
-@api.route("/")
+
+@api.route("/all", methods=['GET'])
 def index():
-    return 'api rodando'
+    DAO.results()
+    dados = DAO.results()
+
+    return jsonify(dados)
 
 
-api.run(debug= True)
+@api.route("/dados", methods=['POST', 'GET'])
+def insert():
+    DAO.inserir()
+    dados = DAO.results()
+
+    return jsonify(dados)
+
+
+api.run(debug=True)
