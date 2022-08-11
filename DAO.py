@@ -30,9 +30,13 @@ def inserir():
             linkedin = request_data['linkedin']
         if 'telefone' in request_data:
             telefone = request_data['telefone']
+        if 'curriculo' in request_data:
+            curriculo = request_data['curriculo']
+        if 'foto' in request_data:
+            foto = request_data['foto']
 
-    dados = f"('{nome}','{cargo}','{empresa}','{email}','{github}','{linkedin}','{telefone}')"
-    comando_sql = f""" INSERT INTO funcionarios (nome,cargo,empresa,email,github,linkedin,telefone)
+    dados = f"('{nome}','{cargo}','{empresa}','{email}','{github}','{linkedin}','{telefone}','{curriculo}','{foto}')"
+    comando_sql = f""" INSERT INTO funcionarios (nome,cargo,empresa,email,github,linkedin,telefone,curriculo,foto)
      VALUES {dados}"""
 
     try:
@@ -61,19 +65,34 @@ def results():
             dados = []
 
             for linha in linhas:
-                dado = {}
-                dado['id'] = linha[0]
-                dado['nome'] = linha[1]
-                dado['cargo'] = linha[2]
-                dado['empresa'] = linha[3]
-                dado['email'] = linha[4]
-                dado['github'] = linha[5]
-                dado['linkedin'] = linha[6]
-                dado['telefone'] = linha[7]
+                dado = {'id': linha[0], 'nome': linha[1], 'cargo': linha[2], 'empresa': linha[3], 'email': linha[4],
+                        'github': linha[5], 'linkedin': linha[6], 'telefone': linha[7], 'curriculo': linha[8],
+                        'foto': linha[9]}
                 dados.append(dado)
             return dados
     except Error as erro:
         print("O erro: ", erro)
+    finally:
+        if con.is_connected():
+            cursor.close()
+            con.close()
+
+
+def consult_id(id):
+    try:
+        conect()
+        if con.is_connected():
+            cursor = con.cursor()
+            consulta_sql = "SELECT * FROM funcionarios WHERE id=" + id
+            cursor.execute(consulta_sql)
+            linha = cursor.fetchone()
+            dados = {'id': linha[0], 'nome': linha[1], 'cargo': linha[2], 'empresa': linha[3], 'email': linha[4],
+                     'github': linha[5], 'linkedin': linha[6], 'telefone': linha[7], 'curriculo': linha[8],
+                     'foto': linha[9]}
+
+            return dados
+    except Error as erro:
+        print("O erro é: ", erro)
     finally:
         if con.is_connected():
             cursor.close()
