@@ -3,6 +3,7 @@ use projeto_evidencia;
 create table funcionarios ( 
 	id int not null primary key auto_increment,
     nome varchar(255),
+    descricao varchar(255),
     cargo varchar(150),
     empresa varchar(200),
     email varchar(255),
