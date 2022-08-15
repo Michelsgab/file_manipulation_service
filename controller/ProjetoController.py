@@ -53,7 +53,7 @@ def popula_objeto(json_response):
     github = json_response['github']
     linkedin = json_response['linkedin']
     telefone = json_response['telefone']
-    curriculo = json_response['curriculo']
-    foto = json_response['foto']
+    # curriculo = json_response['curriculo']
+    # foto = json_response['foto']
     return Projeto(None, nome, descricao, cargo, empresa, email, github,
-                   linkedin, telefone, curriculo, foto)
+                   linkedin, telefone)
