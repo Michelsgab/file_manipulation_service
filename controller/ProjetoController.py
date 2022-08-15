@@ -1,11 +1,13 @@
 import json
 from flask import *
+from flask_cors import CORS
 from server.appserver import server
 from model.ProjetoModel import Projeto
 from service.ProjetoService import ProjetoService
 
 service = ProjetoService()
 app = server.app
+CORS(app)
 
 
 @app.route("/projetos", methods=['GET'])
