@@ -14,14 +14,23 @@ class ProjetoService:
 
     def create(self, projeto):
         with open(f'imagens/{projeto.nome}.png', 'wb') as imagem_nova:
-            imagem_nova.write(base64.decodebytes(bytes(projeto.foto, 'UTF8')))
+            imagem_nova.write(base64.decodebytes(bytes( projeto.foto, 'UTF8')))
         projeto.foto = f"Imagem do {projeto.nome}"
+
+        with open(f'curriculo/{projeto.nome}.pdf', 'wb') as pdf_novo:
+            pdf_novo.write(base64.decodebytes(bytes(projeto.curriculo, 'UTF8')))
+        projeto.foto = f"Curriculo do {projeto.nome}"
         self.projeto.create_projetos(projeto)
 
     def update(self, projeto, id):
         with open(f'imagens/{projeto.nome}.png', 'wb') as imagem_nova:
             imagem_nova.write(base64.decodebytes(bytes(projeto.foto, 'UTF8')))
         projeto.foto = f"Imagem do {projeto.nome}"
+        
+        with open(f'curriculo/{projeto.nome}.pdf', 'wb') as pdf_novo:
+            pdf_novo.write(base64.decodebytes(bytes(projeto.curriculo, 'UTF8')))
+        projeto.foto = f"Curriculo do {projeto.nome}"
+
         self.projeto.update_projetos(projeto, id)
 
     def delete(self, id):
