@@ -1,5 +1,4 @@
 import logging
-from flask import request
 
 from dao.factory.factory import get_data
 from model.ProjetoModel import Projeto
@@ -93,8 +92,6 @@ class ProjetoDAO:
                            projeto.foto))
             self._con.commit()
 
-            arquivo = request.files['imagem']
-            arquivo.save(f'imagens/capa{projeto.nome.projeto.id}.jpg')
         except Exception as err:
             logging.error(
                 f"OCORREU UM ERRO DURANTE A EXECUCAO DO METODO create_projetos DE ProjetoDAO:\n {err.args}")

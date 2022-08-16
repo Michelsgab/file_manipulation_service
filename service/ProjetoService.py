@@ -1,4 +1,4 @@
-from flask import Response, request
+import base64
 from dao.ProjetoDAO import ProjetoDAO
 
 
@@ -13,9 +13,15 @@ class ProjetoService:
         return self.projeto.find_by_id_projetos(id)
 
     def create(self, projeto):
+        with open(f'imagens/{projeto.nome}.png', 'wb') as imagem_nova:
+            imagem_nova.write(base64.decodebytes(bytes(projeto.foto, 'UTF8')))
+        projeto.foto = f"Imagem do {projeto.nome}"
         self.projeto.create_projetos(projeto)
 
     def update(self, projeto, id):
+        with open(f'imagens/{projeto.nome}.png', 'wb') as imagem_nova:
+            imagem_nova.write(base64.decodebytes(bytes(projeto.foto, 'UTF8')))
+        projeto.foto = f"Imagem do {projeto.nome}"
         self.projeto.update_projetos(projeto, id)
 
     def delete(self, id):
