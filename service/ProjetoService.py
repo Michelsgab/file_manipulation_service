@@ -13,13 +13,13 @@ class ProjetoService:
         return self.projeto.find_by_id_projetos(id)
 
     def create(self, projeto):
-        with open(f'imagens/{projeto.nome}.png', 'wb') as imagem_nova:
+        with open(f'imagens/{projeto.nome.replace(" ", "_")}.png', 'wb') as imagem_nova:
             imagem_nova.write(base64.decodebytes(bytes( projeto.foto, 'UTF8')))
-        projeto.foto = f"Imagem do {projeto.nome}"
+        projeto.foto = f"Imagem do {projeto.nome.replace(' ', '_')}"
 
-        with open(f'curriculo/{projeto.nome}.pdf', 'wb') as pdf_novo:
+        with open(f'curriculo/{projeto.nome.replace(" ", "_")}.pdf', 'wb') as pdf_novo:
             pdf_novo.write(base64.decodebytes(bytes(projeto.curriculo, 'UTF8')))
-        projeto.foto = f"Curriculo do {projeto.nome}"
+        projeto.curriculo = f"Curriculo do {projeto.nome.replace(' ', '_')}"
         self.projeto.create_projetos(projeto)
 
     def update(self, projeto, id):

@@ -57,3 +57,8 @@ def popula_objeto(json_response):
     foto = json_response['foto']
     return Projeto(None, nome, descricao, cargo, empresa, email, github,
                    linkedin, telefone, curriculo, foto)
+
+
+@app.route("/static/<path:path>")
+def static_dir(path):
+    return send_from_directory("static", path)
