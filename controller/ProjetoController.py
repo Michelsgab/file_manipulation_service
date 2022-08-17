@@ -1,9 +1,13 @@
+import os
 import json
 from flask import *
 from flask_cors import CORS
 from server.appserver import server
 from model.ProjetoModel import Projeto
 from service.ProjetoService import ProjetoService
+
+diretorio_curriculo = "C:\\Users\\Magna\\Desktop\\projeto-evidencia-service\\curriculo\\"
+diretorio_imagem = "C:\\Users\\Magna\\Desktop\\projeto-evidencia-service\\imagens\\"
 
 service = ProjetoService()
 app = server.app
@@ -44,6 +48,16 @@ def delete_projetos(id):
     return Response("Projeto deletado", status=204)
 
 
+@app.route("/projetos/curriculos/<nome_curriculo>", methods=['GET'])
+def curriculo(nome_curriculo):
+    return send_from_directory(diretorio_curriculo, nome_curriculo, as_attachment=True)
+
+
+@app.route("/projetos/imagens/<nome_imagem>", methods=['GET'])
+def imagem(nome_imagem):
+    return send_from_directory(diretorio_imagem, nome_imagem)
+
+
 def popula_objeto(json_response):
     nome = json_response.get('nome')
     descricao = json_response.get('descricao')
@@ -57,8 +71,3 @@ def popula_objeto(json_response):
     foto = json_response['foto']
     return Projeto(None, nome, descricao, cargo, empresa, email, github,
                    linkedin, telefone, curriculo, foto)
-
-
-@app.route("/static/<path:path>")
-def static_dir(path):
-    return send_from_directory("static", path)
