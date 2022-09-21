@@ -106,7 +106,6 @@ class ProjetoDAO:
         cursor = self._con.cursor()
         try:
             logging.info("INICIANDO MÉTODOA update_projetos de ProjetoDAO")
-            print(id)
             cursor.execute(sql_command, (projeto.nome, projeto.descricao, projeto.cargo, projeto.empresa,
                            projeto.email, projeto.github, projeto.linkedin, projeto.telefone, projeto.curriculo,
                            projeto.foto, id))

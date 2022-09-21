@@ -1,4 +1,3 @@
-import os
 import json
 from flask import *
 from flask_cors import CORS
@@ -49,25 +48,25 @@ def delete_projetos(id):
 
 
 @app.route("/projetos/curriculos/<nome_curriculo>", methods=['GET'])
-def curriculo(nome_curriculo):
+def curriculo_usuario(nome_curriculo):
     return send_from_directory(diretorio_curriculo, nome_curriculo, as_attachment=True)
 
 
 @app.route("/projetos/imagens/<nome_imagem>", methods=['GET'])
-def imagem(nome_imagem):
+def imagem_usuario(nome_imagem):
     return send_from_directory(diretorio_imagem, nome_imagem)
 
 
 def popula_objeto(json_response):
     nome = json_response.get('nome')
     descricao = json_response.get('descricao')
-    cargo = json_response['cargo']
-    empresa = json_response['empresa']
-    email = json_response['email']
-    github = json_response['github']
-    linkedin = json_response['linkedin']
-    telefone = json_response['telefone']
-    curriculo = json_response['curriculo']
-    foto = json_response['foto']
+    cargo = json_response.get('cargo')
+    empresa = json_response.get('empresa')
+    email = json_response.get('email')
+    github = json_response.get('github')
+    linkedin = json_response.get('linkedin')
+    telefone = json_response.get('telefone')
+    curriculo = json_response.get('curriculo')
+    foto = json_response.get('foto')
     return Projeto(None, nome, descricao, cargo, empresa, email, github,
                    linkedin, telefone, curriculo, foto)
